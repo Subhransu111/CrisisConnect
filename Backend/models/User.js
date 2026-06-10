@@ -7,6 +7,7 @@ const helpCategories = [
   "transport",
   "shelter",
   "general",
+  "fire"
 ];
 
 const UserSchema = new mongoose.Schema(

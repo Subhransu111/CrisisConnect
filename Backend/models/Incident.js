@@ -7,6 +7,7 @@ const helpCategories = [
   "transport",
   "shelter",
   "general",
+  "fire"
 ];
 
 const IncidentSchema = new mongoose.Schema(
@@ -143,7 +144,6 @@ const IncidentSchema = new mongoose.Schema(
             "on_the_way",
             "reached",
             "completed",
-            "cancelled",
           ],
           default: "accepted",
         },
@@ -186,12 +186,6 @@ const IncidentSchema = new mongoose.Schema(
       default: "open",
     },
 
-    priority: {
-      type: String,
-      enum: ["low", "medium", "high", "critical"],
-      default: "medium",
-    },
-
     priorityScore: {
       type: Number,
       default: 0,
@@ -205,6 +199,6 @@ IncidentSchema.index({ location: "2dsphere" });
 
 // Helpful for filtering dashboard and volunteer cases
 IncidentSchema.index({ resolutionStatus: 1, verificationStatus: 1 });
-IncidentSchema.index({ severity: 1, priority: 1, createdAt: -1 });
+IncidentSchema.index({ severity: 1, priorityScore: 1, createdAt: -1 });
 
 module.exports = mongoose.model("Incident", IncidentSchema);
