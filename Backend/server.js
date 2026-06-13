@@ -123,24 +123,12 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, () => {
-  console.log(`
-  ╔═══════════════════════════════════════════╗
-  ║  🚀 CrisisConnect Server Running          ║
-  ║  Port: ${PORT}                              ║
-  ║  Environment: ${process.env.NODE_ENV || 'development'}     ║
-  ║  MongoDB: ${process.env.MONGO_URI ? '✅ Connected' : '❌ Not Connected'} ║
-  ╚═══════════════════════════════════════════╝
-  `);
-});
+  server.listen(PORT, () => {
+    console.log(`Server running on ${PORT}`);
+  });
+}
 
-process.on('unhandledRejection', (reason, promise) => {
-  console.error('❌ [UNHANDLED REJECTION]', reason);
-});
-
-process.on('uncaughtException', (error) => {
-  console.error('❌ [UNCAUGHT EXCEPTION]', error.message);
-  process.exit(1);
-});
+module.exports = app;
