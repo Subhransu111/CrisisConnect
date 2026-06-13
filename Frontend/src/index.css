@@ -1,1 +1,18 @@
 @import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Fix leaflet z-index conflict with fixed navbar */
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 10 !important;
+}

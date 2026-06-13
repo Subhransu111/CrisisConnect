@@ -17,7 +17,7 @@ export default function Hero() {
       {/* Red glow */}
       <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-[120px] -translate-y-1/2" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-8 grid grid-cols-2 gap-16 items-center w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-16 items-center w-full">
         {/* Left */}
         <div>
           <motion.div
@@ -59,13 +59,19 @@ export default function Hero() {
             transition={{ delay: 0.5 }}
             className="flex gap-4 mt-10"
           >
-            <Link
-              to="/quick-report"
-              className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white font-bold px-8 py-4 transition-all active:scale-95"
+            {/* Fixed the missing <a opening tag here */}
+            <a
+              href="#quick-report"
+              onClick={(e) => {
+                e.preventDefault()
+                document.getElementById("quick-report")?.scrollIntoView({ behavior: "smooth" })
+              }}
+              className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white font-bold px-8 py-4 transition-all active:scale-95 cursor-pointer"
             >
               <AlertTriangle size={18} />
               Report Emergency
-            </Link>
+            </a>
+            
             <Link
               to="/register?role=volunteer"
               className="flex items-center gap-2 border border-zinc-700 hover:border-red-500 text-white font-bold px-8 py-4 transition-all"
@@ -90,7 +96,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="relative"
+          className="relative hidden md:block" // Hidden on small mobile views to protect layout structure
         >
           <HeroOrb />
           {/* Floating stat cards */}
@@ -102,6 +108,7 @@ export default function Hero() {
             <p className="text-red-500 font-black text-xl">1,200+</p>
             <p className="text-gray-400 text-xs">Incidents Resolved</p>
           </motion.div>
+          
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
